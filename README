@@ -10,7 +10,8 @@ A light, compact and simple JavaScript Flash utility.
 >>JSON.stringify(lilswif.v)
 {
     installed: false,
-    raw:"", major:-1,
+    raw:"",
+    major:-1,
     minor:-1,
     revision:-1,
     revisionStr:""
