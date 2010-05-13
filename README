@@ -7,5 +7,11 @@ A minimalist port of the JavaScript Flash Detection - http://featureblend.com/ja
 
 A light, compact and simple JavaScript Flash utility.
 
-!!!WARNING!!! 
-Not release ready
+>>JSON.stringify(lilswif.v)
+{
+    installed: false,
+    raw:"", major:-1,
+    minor:-1,
+    revision:-1,
+    revisionStr:""
+}
