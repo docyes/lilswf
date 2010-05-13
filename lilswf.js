@@ -31,25 +31,31 @@ var lilswf = function(){
            }
         ],
         info = {raw:"", major:-1, minor:-1, revision:-1, revisionStr:""};
-    if(navigator.appVersion.indexOf("Mac")==-1 && window.execScript){
-        var version = -1;
-        for(var i=0; i<axRules.length && version==-1; i++){
-            var axRule = axRules[i];
-            var obj = axObj(axRule.name);
-            if(!obj.activeXError){
-                self.installed = true;
-                version = axRule.version(obj);
-                if(version!=-1){
-                    var v = axParser(version);
-                    info.raw = v.raw;
-                    info.major = v.major;
-                    info.minor = v.minor;
-                    info.revision = v.revision;
-                    info.revisionStr = v.revisionStr;
+        self.installed = false;
+    /**
+     * TBD.
+     */
+    function parseRules(){
+        if(navigator.appVersion.indexOf("Mac")==-1 && window.execScript){
+            var version = -1;
+            for(var i=0; i<axRules.length && version==-1; i++){
+                var axRule = axRules[i];
+                var obj = axObj(axRule.name);
+                if(!obj.activeXError){
+                    self.installed = true;
+                    version = axRule.version(obj);
+                    if(version!=-1){
+                        var v = axParser(version);
+                        info.raw = v.raw;
+                        info.major = v.major;
+                        info.minor = v.minor;
+                        info.revision = v.revision;
+                        info.revisionStr = v.revisionStr;
+                    }
                 }
             }
         }
-    }    
+    }
     /**
      * Gracefully extract the ActiveX version of the plugin.
      * 
@@ -62,7 +68,7 @@ var lilswf = function(){
             v = axObj.GetVariable("$version");
         }catch(err){}
         return v;
-    };
+    }
     /**
      * Try and retrieve an ActiveX object having a specified name.
      * 
@@ -78,7 +84,7 @@ var lilswf = function(){
             obj = {activeXError:true};
         }
         return obj;
-    };    
+    }
     /**
      * Parse an ActiveX $version string into an object.
      * 
@@ -95,6 +101,6 @@ var lilswf = function(){
             "revision":parseInt(v[2], 10),
             "revisionStr":v[2]
         };
-    };
+    }
     return self;
 }();
