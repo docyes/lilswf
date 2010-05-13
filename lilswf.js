@@ -29,20 +29,23 @@ var lilswf = function(){
                   return axV(obj);
               }
            }
-        ],
-        info = {raw:"", major:-1, minor:-1, revision:-1, revisionStr:""};
-        self.installed = false;
+        ];
+        self.v = genV();
+    function genV(){
+        return (navigator.appVersion.indexOf("Mac")==-1 && window.execScript)?axRulesParser():{installed: false, raw:"", major:-1, minor:-1, revision:-1, revisionStr:""}
+    }
     /**
      * TBD.
      */
-    function parseRules(){
+    function axRulesParser(){
+        var info = {installed: false, raw:"", major:-1, minor:-1, revision:-1, revisionStr:""};
         if(navigator.appVersion.indexOf("Mac")==-1 && window.execScript){
             var version = -1;
             for(var i=0; i<axRules.length && version==-1; i++){
                 var axRule = axRules[i];
                 var obj = axObj(axRule.name);
                 if(!obj.activeXError){
-                    self.installed = true;
+                    info.installed = true;
                     version = axRule.version(obj);
                     if(version!=-1){
                         var v = axParser(version);
@@ -55,6 +58,7 @@ var lilswf = function(){
                 }
             }
         }
+        return info;
     }
     /**
      * Gracefully extract the ActiveX version of the plugin.
