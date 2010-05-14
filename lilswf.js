@@ -54,14 +54,14 @@ var lilswf = function(){
      * {String} revisionString
      */
     function parseActiveXVersionVariable(str){
-        var v = str.split(",");
-        return {
-            raw: str,
-            major: parseInt(v[0].split(" ")[1], 10) || -1,
-            minor: parseInt(v[1], 10) || -1,
-            revision: parseInt(v[2], 10) || -1,
-            revisionString: v[2] || ""
-        };
+        var parts = str.split(","),
+            version = [],
+            part;
+        for(var i = 0, l = parts.length; i < l; i++){
+            part = parts[i];
+            version[i] = parseInt(part, 10) || -1;
+        }
+        return version;
     }
     return self;
 }();
