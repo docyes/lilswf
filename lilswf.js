@@ -3,8 +3,9 @@
  * NOTE: I am not done and production ready yet.
  */
 var lilswf = function(){
-    var self = this;
-    var undefined;
+    var window,
+        undefined,
+        self = this;
     /**
      * A safe accessor for the native ActiveX GetVariable method.
      * 
@@ -56,10 +57,10 @@ var lilswf = function(){
         var v = str.split(",");
         return {
             raw: str,
-            major: parseInt(v[0].split(" ")[1], 10),
-            minor: parseInt(v[1], 10),
-            revision: parseInt(v[2], 10),
-            revisionString: v[2]
+            major: parseInt(v[0].split(" ")[1], 10) || -1,
+            minor: parseInt(v[1], 10) || -1,
+            revision: parseInt(v[2], 10) || -1,
+            revisionString: v[2] || ""
         };
     }
     return self;
