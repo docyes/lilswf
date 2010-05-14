@@ -20,11 +20,11 @@ var lilswf = function(){
      * @type String
      */
     function activeXObjectGetVariable(activeXObj, name){
-        var value = "";
         try{
-            value = activeXObj.GetVariable(name);
-        }catch(e){}
-        return value;
+            return activeXObj.GetVariable(name);
+        }catch(e){
+            return "";
+        }
     }
     /**
      * A safe accessor for creating a native ActiveX object 
@@ -34,11 +34,11 @@ var lilswf = function(){
      * @return One of an ActiveX object or undefined.
      */
     function newActiveObject(name){
-        var obj = undefined;
         try{
-            obj = new ActiveXObject(name);
-        }catch(e){}
-        return obj;
+            return new ActiveXObject(name);
+        }catch(e){
+            return undefined;
+        }
     }
     /**
      * Parse an ActiveX $version variable into properly casted members:
