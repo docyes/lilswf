@@ -5,7 +5,7 @@
                     
 A light, compact and simple JavaScript Flash utility.
 
->>JSON.stringify(lilswif.v)
+>>JSON.stringify(lilswf.v)
 {
     installed: false,
     raw:"",
