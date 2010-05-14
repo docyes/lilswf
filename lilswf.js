@@ -50,11 +50,9 @@ var lilswf = function(){
      */
     function parseActiveXVersionVariable(str){
         var parts = str.split(","),
-            version = [],
-            part;
+            version = [];
         for(var i = 0, l = parts.length; i < l; i++){
-            part = parts[i];
-            version[i] = parseInt(part, 10) || -1;
+            version[i] = parseInt(parts[i], 10) || -1;
         }
         return version;
     }
