@@ -6,6 +6,9 @@ var lilswf = function(){
     var window,
         undefined,
         self = this;
+        self.raw = "",
+        self.version = [],
+        self.installed = self.isCool = false;
     /**
      * A safe accessor for the native ActiveX GetVariable method.
      * 
@@ -13,12 +16,6 @@ var lilswf = function(){
      * @param {String} name The variable name for lookup.
      * @type {String}
      * @return The value of the AxtiveX if it is found or an empty string.
-     * 
-     * 
-     * Returns the value of the Flash variable specified by name. Returns null if the variable does not exist. The argument type is string.
-     * 
-     * @param {Object} activeXObj The flash ActiveX object.
-     * @type String
      */
     function activeXObjectGetVariable(activeXObj, name){
         try{
@@ -44,17 +41,26 @@ var lilswf = function(){
     /**
      * Parse an ActiveX $version variable into properly casted members:
      * 
-     * @param {String} str The ActiveX Object GetVariable($version) return value. 
+     * @param {String} raw The ActiveX Object GetVariable($version) string return value. 
      * @type Array
      * @return An array of integers casted from the original raw version string. Values that can't be casted are returned as a -1 value.
      */
-    function parseActiveXVersionVariable(str){
-        var parts = str.split(","),
+    function parseActiveXVersionVariable(raw){
+        var parts = raw.split(","),
             version = [];
         for(var i = 0, l = parts.length; i < l; i++){
             version[i] = parseInt(parts[i], 10) || -1;
         }
         return version;
     }
+    /**
+     * TBD.
+     * 
+     * @params arguments
+     * @type Boolean
+     */
+    self.atLeast = function(){
+        return false;
+    };
     return self;
 }();
