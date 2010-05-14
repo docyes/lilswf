@@ -45,13 +45,8 @@ var lilswf = function(){
      * Parse an ActiveX $version variable into properly casted members:
      * 
      * @param {String} str The ActiveX Object GetVariable($version) return value. 
-     * @type Object
-     * @return An object literal having the following properties:
-     * {String} raw
-     * {Number} major 
-     * {Number} minor
-     * {Number} revision 
-     * {String} revisionString
+     * @type Array
+     * @return An array of integers casted from the original raw version string. Values that can't be casted are returned as a -1 value.
      */
     function parseActiveXVersionVariable(str){
         var parts = str.split(","),
