@@ -5,20 +5,20 @@
                     
 A light, compact and simple JavaScript Flash utility.
 
->lilswf.installed //alias lilswf.isCool
+>lilswf.has
 true
 
 >lilswf.raw
 "Shockwave Flash 10.0 r42"
 
->lilswf.version
+>lilswf.ver
 [10, 0, 42]
 
->lilswf.atLeast(10)
+>lilswf.gte(10)
 true
 
->lilswf.atLeast(10, 0)
+>lilswf.gte(10, 0)
 true
 
->lilswf.atLeast(10, 0, 41)
+>lilswf.gte(10, 0, 41)
 false
