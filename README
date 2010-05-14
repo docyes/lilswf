@@ -5,7 +5,7 @@
                     
 A light, compact and simple JavaScript Flash utility.
 
->lilswf.installed OR lilswf.isCool
+>lilswf.installed //alias lilswf.isCool
 true
 
 >lilswf.raw
