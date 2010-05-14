@@ -14,12 +14,29 @@ true
 >lilswf.ver
 [10, 0, 42]
 
+>lilswf.eq(10)
+true
+
+>lilswf.eq(10, 0)
+true
+
+>lilswf.eq(10, 0, 42)
+true
+
+>lilswf.eq("10")
+true
+
+>lilswf.eq("10.0")
+true
+
+>lilswf.eq("10.0.42")
+true
+
 >lilswf.gte(10)
 true
 
 >lilswf.gte("10")
 true
-
 
 >lilswf.gte(10, 0)
 true
