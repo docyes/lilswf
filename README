@@ -20,5 +20,32 @@ true
 >lilswf.gte(10, 0)
 true
 
->lilswf.gte(10, 0, 41)
+>lilswf.gte(10, 0, 42)
+false
+
+>lilswf.gt(10)
+false
+
+>lilswf.gt(10, 0)
+false
+
+>lilswf.gt(10, 0, 42)
+true
+
+>lilswf.lte(10)
+true
+
+>lilswf.lte(10, 0)
+true
+
+>lilswf.lte(10, 0, 42)
+true
+
+>lilswf.lt(10)
+false
+
+>lilswf.lt(10, 0)
+false
+
+>lilswf.lt(10, 0, 42)
 false
