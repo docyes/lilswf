@@ -55,13 +55,13 @@ var lilswf = function(){
         return parts;
     }
     function argumentsToNumberArray(){
-        return Array.apply(null, arguments).join(".").match(/[0-9]+/g);
+    	return Array.apply(null, arguments).join("").match(/[0-9]+/g);
     }
     self.eq = function(){
-        return compareArrayNumber("===", argumentsToNumberArray(arguments), []);
+
     };
     self.gt = function(){
-
+  
     };
     self.gte = function(){
 
@@ -71,19 +71,6 @@ var lilswf = function(){
     };
     self.lte = function(){
 
-    };
-    function compareArrayNumbers(array1, operator, array2){
-        var program = [
-            "for(var i=0; i<array1.length; i++){",
-            "    if(array2[i] && array1[i] " + operator + " array2[i]){",
-            "        continue;",
-            "    }else{",
-            "        return false;",
-            "    }",
-            "}",
-            "return true;",
-        ];
-        return (new Function("array1", "array2", program.join("")))(array1, array2);
     };
     return self;
 }();
