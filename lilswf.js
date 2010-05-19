@@ -43,8 +43,8 @@ var lilswf = function(){
      * 
      * @return
      */
-    function argumentsToNumberArray(){
-        return stringNumbersToArrayNumbers(Array.apply(null, arguments).join(""));
+    function argumentsToArray(){
+        return Array.apply(null, arguments);
     }
     /**
      * TBD.
@@ -91,20 +91,29 @@ var lilswf = function(){
                 throw new Error("Invalid comparison operator.");
         }
     }
+    /**
+     * TBD.
+     * 
+     * @type Boolean
+     * @return TBD.
+     */
+    self.is = function(operator){
+        return compare(stringNumbersToArrayNumbers(argumentsToArray(arguments).slice(1).join("")), operator, self.version);
+    };
     self.eq = function(){
-        return compare(argumentsToNumberArray(arguments), "==", self.version);
+        return self.is("==", argumentsToArray(arguments).join("."));
     };
     self.gt = function(){
-        return compare(argumentsToNumberArray(arguments), ">", self.version);
+        return self.is(">", argumentsToArray(arguments).join("."));
     };
     self.gte = function(){
-        return compare(argumentsToNumberArray(arguments), ">=", self.version);
+        return self.is(">=", argumentsToArray(arguments).join("."));
     };
     self.lt = function(){
-        return compare(argumentsToNumberArray(arguments), "<", self.version);
+        return self.is("<", argumentsToArray(arguments).join("."));
     };
     self.lte = function(){
-        return compare(argumentsToNumberArray(arguments), "<=", self.version);
+        return self.is("<=", argumentsToArray(arguments).join("."));
     };
     return self;
 }();
