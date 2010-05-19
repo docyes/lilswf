@@ -39,33 +39,26 @@ var lilswf = function(){
         }
     }
     /**
-     * Parse an ActiveX $version variable into properly casted members:
-     * 
-     * @param {String} raw The ActiveX Object GetVariable($version) string return value. 
-     * @type Array
-     * @return An array of integers casted from the original raw version string. Values that can't be casted are returned as a -1 value.
-     */    
-    function parseActiveXVersionVariable(raw){
-        var parts = raw.match(/[0-9]+/g),
-            i = 0,
-            l = parts.length;
-        for(; i < l; i++){
-            parts[i] = parseInt(parts[i], 10);
-        }
-        return parts;
-    }
-    /**
      * TBD.
+     * 
      * @return
      */
     function argumentsToNumberArray(){
-    	var parts = Array.apply(null, arguments).join("").match(/[0-9]+/g),
-            i = 0,
-            l = parts.length;
+        return stringNumbersToArrayNumbers(Array.apply(null, arguments).join(""));
+    }
+    /**
+     * TBD.
+     * 
+     * @return
+     */
+    function stringNumbersToArrayNumbers(str){
+        var parts = str.match(/[0-9]+/g),
+        i = 0,
+        l = parts.length;
         for(; i < l; i++){
             parts[i] = parseInt(parts[i], 10);
         }
-        return parts;
+        return parts;        
     }
     /**
      * TBD.
@@ -99,19 +92,19 @@ var lilswf = function(){
         }
     }
     self.eq = function(){
-
+        return compare(argumentsToNumberArray(arguments), "==", self.version);
     };
     self.gt = function(){
-  
+        return compare(argumentsToNumberArray(arguments), ">", self.version);
     };
     self.gte = function(){
-
+        return compare(argumentsToNumberArray(arguments), ">=", self.version);
     };
     self.lt = function(){
-
+        return compare(argumentsToNumberArray(arguments), "<", self.version);
     };
     self.lte = function(){
-
+        return compare(argumentsToNumberArray(arguments), "<=", self.version);
     };
     return self;
 }();
