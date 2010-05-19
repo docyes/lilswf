@@ -54,8 +54,49 @@ var lilswf = function(){
         }
         return parts;
     }
+    /**
+     * TBD.
+     * @return
+     */
     function argumentsToNumberArray(){
-    	return Array.apply(null, arguments).join("").match(/[0-9]+/g);
+    	var parts = Array.apply(null, arguments).join("").match(/[0-9]+/g),
+            i = 0,
+            l = parts.length;
+        for(; i < l; i++){
+            parts[i] = parseInt(parts[i], 10);
+        }
+        return parts;
+    }
+    /**
+     * TBD.
+     * 
+     * @type Boolean
+     * @return TBD.
+     */
+    function compare(arrayA, operator, arrayB){
+        var sumA = sumB = 0,
+            units = 1,
+            i = 0,
+            l = Math.min(arrayA.length, arrayB.length);
+        for(; i < l; i++){
+            sumA += arrayA[(l-i-1)] * units;
+            sumB += arrayB[(l-i-1)] * units;
+            units *= 10;
+        }
+        switch(operator){
+            case "<":
+                return sumA < sumB;
+            case "<=":
+                return sumA <= sumB;
+            case ">":
+                return sumA > sumB;
+            case ">=":
+                return sumA >= sumB;
+            case "==":
+                return sumA == sumB;
+            default:
+                throw new Error("Invalid comparison operator.");
+        }
     }
     self.eq = function(){
 
