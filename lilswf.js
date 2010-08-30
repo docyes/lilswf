@@ -1,119 +1,107 @@
-/**
- * lil lib to help you detect flash.
- * NOTE: I am not production ready yet.
- */
-var lilswf = function(){
-    var window,
-        undefined,
-        self = this;
-        self.raw = "",
-        self.version = [],
-        self.installed = self.isCool = false;
-    /**
-     * A safe accessor for the native ActiveX GetVariable method.
-     * 
-     * @param {Object} activeXObj A reference to an ActiveXObject.
-     * @param {String} name The variable name for lookup.
-     * @type {String}
-     * @return The value of the AxtiveX if it is found or an empty string.
-     */       
-    function activeXObjectGetVariable(activeXObj, name){
+(function(){
+	var version = -1,
+	raw = '',
+	numerics = [],
+	SIGNIFICANCE = 4;
+	// Init
+	function init(){
+		//Do something
+	}
+    // Safe accessor for native ActiveX GetVariable method.
+	function activeXObjectGetVariable(activeXObj, name){
         try{
             return activeXObj.GetVariable(name);
         }catch(e){
-            return "";
+            return '';
         }
     }
-    /**
-     * A safe accessor for creating a native ActiveX object 
-     * 
-     * @param {String} name The ActiveX object name lookup.
-     * @type Object || undefined
-     * @return One of an ActiveX object or undefined.
-     */    
-    function newActiveObject(name){
+	// Safe constructor for ActiveX object creation.
+    function newActiveXObject(name){
         try{
             return new ActiveXObject(name);
         }catch(e){
             return undefined;
         }
     }
-    /**
-     * TBD.
-     * 
-     * @return
-     */
-    function argumentsToArray(){
-        return Array.apply(null, arguments);
-    }
-    /**
-     * TBD.
-     * 
-     * @return
-     */
-    function stringNumbersToArrayNumbers(str){
-        var parts = str.match(/[0-9]+/g),
-        i = 0,
-        l = parts.length;
-        for(; i < l; i++){
-            parts[i] = parseInt(parts[i], 10);
-        }
-        return parts;        
-    }
-    /**
-     * TBD.
-     * 
-     * @type Boolean
-     * @return TBD.
-     */
-    function compare(arrayA, operator, arrayB){
-        var sumA = sumB = 0,
-            units = 1,
-            i = 0,
-            l = Math.min(arrayA.length, arrayB.length);
-        for(; i < l; i++){
-            sumA += arrayA[(l-i-1)] * units;
-            sumB += arrayB[(l-i-1)] * units;
-            units *= 10;
-        }
-        switch(operator){
-            case "<":
-                return sumA < sumB;
-            case "<=":
-                return sumA <= sumB;
-            case ">":
-                return sumA > sumB;
-            case ">=":
-                return sumA >= sumB;
-            case "==":
-                return sumA == sumB;
-            default:
-                throw new Error("Invalid comparison operator.");
-        }
-    }
-    /**
-     * TBD.
-     * 
-     * @type Boolean
-     * @return TBD.
-     */
-    self.is = function(operator){
-        return compare(stringNumbersToArrayNumbers(argumentsToArray(arguments).slice(1).join("")), operator, self.version);
-    };
-    self.eq = function(){
-        return self.is("==", argumentsToArray(arguments).join("."));
-    };
-    self.gt = function(){
-        return self.is(">", argumentsToArray(arguments).join("."));
-    };
-    self.gte = function(){
-        return self.is(">=", argumentsToArray(arguments).join("."));
-    };
-    self.lt = function(){
-        return self.is("<", argumentsToArray(arguments).join("."));
-    };
-    self.lte = function(){
-        return self.is("<=", argumentsToArray(arguments).join("."));
-    };
-    return self;
-}();
+	// Casts and arguments object to an array.
+	function argumentsToArray(){
+	    return Array.prototype.slice.call(arguments);
+	}
+	// Convert an array of values to a comma delimited string.
+	function arrayToCSV(array){
+	    return array.join(',');
+	}
+	// Get number groups from a string 
+	function numberGroupsFromString(str){
+	    return str.match(/[0-9]+/g);
+	}
+	// Takes and array of numbers and normalizes it to numerical value based on significant digits.
+	function arrayOfNumbersToInt(array, significant, options){
+	    var sum = 0,
+	        units = 1,
+	        options = options || {},
+	        i = 0,
+	        l = options.length || array.length;
+	    for(; i < l; i++){
+	        sum += array[(l-i-1)] * units;
+	        units *= Math.pow(10, significant);
+	    }
+	    return sum;
+	}
+	// Takes an arbitrary loose set of arguments and parses them into a normalized number for comparison.
+	function argumentsToNumber(){
+		var args = argumentsToArray.apply(null, arguments);
+	    var csv = arrayToCSV(args);
+	    var numberGroups = numberGroupsFromString(csv);
+	    var version = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE)
+	    return version;
+	}
+	// Compare to values againts a defined operator. The minimum length of the two values is used without rounding.
+	function compare(a, operator, b){
+		var minLength = Math.min(a.toString().length, b.toString().length);
+		var a = parseInt(a.toString().substring(0, minLength), 10);
+		var b = parseInt(b.toString().substring(0, minLength), 10);
+		var program = 'return ' + a + ' ' + operator + ' ' + b + ';';
+		return Function(program)();
+	}
+	// Public
+	var lilswf = window.lilswf = {
+		// Does it exist.
+		has: function(){
+			return true;
+		},
+		// The raw version info.
+		raw: function(){
+			return raw;
+		},
+		// The raw version parsed and casted to a set of numbers.
+		numerics: function(){
+			return numerics;
+		},
+		// Greater than comparison.
+		gt: function(){
+			var number = argumentsToNumber.apply(null, arguments);
+			return compare(number, '>', version);
+		},
+		// Greater than or equal comparison.
+		gte: function(){
+			var number = argumentsToNumber.apply(null, arguments);
+			return compare(number, '>=', version);
+		},
+		// Equal comparison.
+		eq: function(){
+			var number = argumentsToNumber.apply(null, arguments);
+			return compare(number, '==', version);
+		},
+		// Less than comparison.
+		lt: function(){
+			var number = argumentsToNumber.apply(null, arguments);
+			return compare(number, '<', version);
+		},
+		// Less than or equal comparison.
+		lte: function(){
+			var number = argumentsToNumber.apply(null, arguments);
+			return compare(number, '<=', version);
+		}
+	};
+})();
