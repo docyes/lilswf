@@ -3,20 +3,6 @@ test("gt test", function() {
     // Expose privates for testing.
     lilswf.enableTest()
 	
-    //retrieve number groups from a string
-    //simple string with no padding
-    var numberGroups = lilswf.numberGroupsFromString('1,2,3');
-    equals(numberGroups.toString(), '1,2,3')
-    //simple string with padding
-    var numberGroups = lilswf.numberGroupsFromString(' 1,2 , 3 ');
-    equals(numberGroups.toString(), '1,2,3')
-    //complex string with no padding
-    var numberGroups = lilswf.numberGroupsFromString('a1,2b,c3d');
-    equals(numberGroups.toString(), '1,2,3')
-    //complex string with padding
-    var numberGroups = lilswf.numberGroupsFromString(' a1,2b , c3d ');
-    equals(numberGroups.toString(), '1,2,3')
-
     //convert an array of numerical values to number
     //array of numbers as strings to a significance of 1
     equals(lilswf.arrayOfNumbersToInt(['1','2','3'], 1), 123)

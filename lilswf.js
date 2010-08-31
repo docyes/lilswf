@@ -2,7 +2,8 @@
     var version = -1,
         raw = '',
         numbers = [],
-        SIGNIFICANCE = 4;
+        SIGNIFICANCE = 4,
+        NUMBER_GROUPS = /[0-9]+/g;
     // Init
     (function init(){
         if(navigator.plugins && navigator.plugins.length>0){
@@ -15,7 +16,7 @@
             // I will be here soon!
         }
         if(raw){
-            numbers = numberGroupsFromString(raw);
+            numbers = raw.match(NUMBER_GROUPS);
             version = arrayOfNumbersToInt(numbers, SIGNIFICANCE);
         }
     })();
@@ -35,10 +36,6 @@
             return undefined;
         }
     }
-    // Get number groups from a string 
-    function numberGroupsFromString(str){
-        return str.match(/[0-9]+/g);
-    }
     // Takes and array of numbers and normalizes it to numerical value based on significant digits.
     function arrayOfNumbersToInt(array, significant, options){
         var sum = 0,
@@ -56,7 +53,7 @@
     function argumentsToNumber(){
         var args = Array.prototype.slice.call(arguments),
             csv = args.join(','),
-            numberGroups = numberGroupsFromString(csv),
+            numberGroups = csv.match(NUMBER_GROUPS),
             version = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE);
         return version;
     }
@@ -109,7 +106,7 @@
         },
         // Enables test mode of private methods.
         enableTest: function(){
-            var privates = ['numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
+            var privates = ['arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
             for(var i=0; i<privates.length; i++){
                 var name = privates[i];
                 lilswf[name] = eval(name);
