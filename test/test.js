@@ -3,17 +3,6 @@ test("gt test", function() {
     // Expose privates for testing.
     lilswf.enableTest()
 	
-    //convert an array of values to a string
-    //simple number array
-    var csv = lilswf.arrayToCSV([1, 2, 3])
-    equals(csv, '1,2,3')
-    //simple string array
-    var csv = lilswf.arrayToCSV(['1', '2', '3'])
-    equals(csv, '1,2,3')
-    //simple mixed array of values
-    var csv = lilswf.arrayToCSV([1, '2', 3])
-    equals(csv, '1,2,3')
-    
     //retrieve number groups from a string
     //simple string with no padding
     var numberGroups = lilswf.numberGroupsFromString('1,2,3');

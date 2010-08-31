@@ -35,10 +35,6 @@
             return undefined;
         }
     }
-    // Convert an array of values to a comma delimited string.
-    function arrayToCSV(array){
-        return array.join(',');
-    }
     // Get number groups from a string 
     function numberGroupsFromString(str){
         return str.match(/[0-9]+/g);
@@ -59,7 +55,7 @@
     // Takes an arbitrary loose set of arguments and parses them into a normalized number for comparison.
     function argumentsToNumber(){
         var args = Array.prototype.slice.call(arguments),
-            csv = arrayToCSV(args),
+            csv = args.join(','),
             numberGroups = numberGroupsFromString(csv),
             version = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE);
         return version;
@@ -113,7 +109,7 @@
         },
         // Enables test mode of private methods.
         enableTest: function(){
-            var privates = ['arrayToCSV', 'numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
+            var privates = ['numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
             for(var i=0; i<privates.length; i++){
                 var name = privates[i];
                 lilswf[name] = eval(name);
