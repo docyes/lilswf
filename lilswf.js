@@ -35,10 +35,6 @@
             return undefined;
         }
     }
-    // Casts and arguments object to an array.
-    function argumentsToArray(){
-        return Array.prototype.slice.call(arguments);
-    }
     // Convert an array of values to a comma delimited string.
     function arrayToCSV(array){
         return array.join(',');
@@ -62,7 +58,7 @@
     }
     // Takes an arbitrary loose set of arguments and parses them into a normalized number for comparison.
     function argumentsToNumber(){
-        var args = argumentsToArray.apply(null, arguments),
+        var args = Array.prototype.slice.call(arguments),
             csv = arrayToCSV(args),
             numberGroups = numberGroupsFromString(csv),
             version = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE);
@@ -117,7 +113,7 @@
         },
         // Enables test mode of private methods.
         enableTest: function(){
-            var privates = ['argumentsToArray', 'arrayToCSV', 'numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
+            var privates = ['arrayToCSV', 'numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
             for(var i=0; i<privates.length; i++){
                 var name = privates[i];
                 lilswf[name] = eval(name);
