@@ -5,13 +5,13 @@
                     
 A light, compact and simple JavaScript Flash utility.
 
->lilswf.has
+>lilswf.has()
 true
 
->lilswf.raw
+>lilswf.raw()
 "Shockwave Flash 10.0 r42"
 
->lilswf.ver
+>lilswf.numbers()
 [10, 0, 42]
 
 "=="

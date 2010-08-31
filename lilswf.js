@@ -1,7 +1,7 @@
 (function(){
-    var version = -1,
+    var version = 100020003,
         raw = '',
-        numerics = [],
+        numbers = [],
         SIGNIFICANCE = 4;
     // Init
     function init(){
@@ -75,33 +75,41 @@
             return raw;
         },
         // The raw version parsed and casted to a set of numbers.
-        numerics: function(){
-            return numerics;
+        numbers: function(){
+            return numbers;
         },
         // Greater than comparison.
         gt: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(number, '>', version);
+            return compare(version, '>', number);
         },
         // Greater than or equal comparison.
         gte: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(number, '>=', version);
+            return compare(version, '>=', number);
         },
         // Equal comparison.
         eq: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(number, '==', version);
+            return compare(version, '==', number);
         },
         // Less than comparison.
         lt: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(number, '<', version);
+            return compare(version, '<', number);
         },
         // Less than or equal comparison.
         lte: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(number, '<=', version);
+            return compare(version, '<=', number);
+        },
+        // Enables test mode of private methods.
+        enableTest: function(){
+            var privates = ['argumentsToArray', 'arrayToCSV', 'numberGroupsFromString', 'arrayOfNumbersToInt', 'argumentsToNumber', 'compare'];
+            for(var i=0; i<privates.length; i++){
+                var name = privates[i];
+                lilswf[name] = eval(name);
+            }
         }
     };
 })();
