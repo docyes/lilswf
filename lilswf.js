@@ -1,12 +1,24 @@
 (function(){
-    var version = 100020003,
+    var version = -1,
         raw = '',
         numbers = [],
         SIGNIFICANCE = 4;
     // Init
-    function init(){
-        //Do something
-    }
+    (function init(){
+        if(navigator.plugins && navigator.plugins.length>0){
+            var type = 'application/x-shockwave-flash',
+                mimeTypes = navigator.mimeTypes;
+            if(mimeTypes && mimeTypes[type] && mimeTypes[type].enabledPlugin && mimeTypes[type].enabledPlugin.description){
+                raw = mimeTypes[type].enabledPlugin.description;
+            }
+        }else if(navigator.appVersion.indexOf("Mac")==-1 && window.execScript){
+            // I will be here soon!
+        }
+        if(raw){
+            numbers = numberGroupsFromString(raw);
+            version = arrayOfNumbersToInt(numbers, SIGNIFICANCE);
+        }
+    })();
     // Safe accessor for native ActiveX GetVariable method.
     function activeXObjectGetVariable(activeXObj, name){
         try{
@@ -68,7 +80,7 @@
     var lilswf = window.lilswf = {
         // Does it exist.
         has: function(){
-            return true;
+            return !!(raw);
         },
         // The raw version info.
         raw: function(){
