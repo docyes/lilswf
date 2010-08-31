@@ -3,10 +3,6 @@ test("gt test", function() {
     // Expose privates for testing.
     lilswf.enableTest()
 	
-    //arguments to array casting
-    var args = lilswf.argumentsToArray(1, 2, 3);
-    equals(args instanceof Array, true)
-
     //convert an array of values to a string
     //simple number array
     var csv = lilswf.arrayToCSV([1, 2, 3])
