@@ -1,5 +1,5 @@
 (function(){
-    var version = -1,
+    var number = -1,
         raw = '',
         numbers = [],
         SIGNIFICANCE = 4,
@@ -17,7 +17,7 @@
         }
         if(raw){
             numbers = raw.match(NUMBER_GROUPS);
-            version = arrayOfNumbersToInt(numbers, SIGNIFICANCE);
+            number = arrayOfNumbersToInt(numbers, SIGNIFICANCE);
         }
     })();
     // Safe accessor for native ActiveX GetVariable method.
@@ -54,8 +54,8 @@
         var args = Array.prototype.slice.call(arguments),
             csv = args.join(','),
             numberGroups = csv.match(NUMBER_GROUPS),
-            version = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE);
-        return version;
+            number = arrayOfNumbersToInt(numberGroups, SIGNIFICANCE);
+        return number;
     }
     // Compare to values againts a defined operator. The minimum length of the two values is used without rounding.
     function compare(a, operator, b){
@@ -74,41 +74,37 @@
     // Public
     var lilswf = window.lilswf = {
         // Does it exist.
-        has: function(){
-            return !!(raw);
-        },
-        // The raw version info.
-        raw: function(){
-            return raw;
-        },
-        // The raw version parsed and casted to a set of numbers.
-        numbers: function(){
-            return numbers;
-        },
+        has: !!(raw),
+        // Raw version info.
+        raw: raw,
+        // Parsed and casted array of numbers from raw.
+        numbers: numbers,
+        // Normalized numerical value from numbers.
+        number: number,
         // Greater than comparison.
         gt: function(){
             var number = argumentsToNumber.apply(null, arguments);
-            return compare(version, '>', number);
+            return compare(number, '>', number2);
         },
         // Greater than or equal comparison.
         gte: function(){
-            var number = argumentsToNumber.apply(null, arguments);
-            return compare(version, '>=', number);
+            var number2 = argumentsToNumber.apply(null, arguments);
+            return compare(number, '>=', number2);
         },
         // Equal comparison.
         eq: function(){
-            var number = argumentsToNumber.apply(null, arguments);
-            return compare(version, '==', number);
+            var number2 = argumentsToNumber.apply(null, arguments);
+            return compare(number, '==', number2);
         },
         // Less than comparison.
         lt: function(){
-            var number = argumentsToNumber.apply(null, arguments);
-            return compare(version, '<', number);
+            var number2 = argumentsToNumber.apply(null, arguments);
+            return compare(number, '<', number2);
         },
         // Less than or equal comparison.
         lte: function(){
-            var number = argumentsToNumber.apply(null, arguments);
-            return compare(version, '<=', number);
+            var number2 = argumentsToNumber.apply(null, arguments);
+            return compare(number, '<=', number2);
         },
         // Enables test mode of private methods.
         enableTest: function(){

@@ -5,14 +5,17 @@
                     
 A light, compact and simple JavaScript Flash utility.
 
->lilswf.has()
+>lilswf.has
 true
 
->lilswf.raw()
+>lilswf.raw
 "Shockwave Flash 10.0 r42"
 
->lilswf.numbers()
+>lilswf.numbers
 [10, 0, 42]
+
+>lilswf.number
+1000000042
 
 "=="
 >lilswf.eq(10) //OR "10".
