@@ -59,11 +59,17 @@
     }
     // Compare to values againts a defined operator. The minimum length of the two values is used without rounding.
     function compare(a, operator, b){
-        var minLength = Math.min(a.toString().length, b.toString().length),
+        var comparisons = {
+              '>': function(a, b){return a > b;},
+              '>=': function(a, b){return a >= b;},
+              '<': function(a, b){return a < b;},
+              '<=': function(a, b){return a <= b;},
+              '==': function(a, b){return a == b;}
+            },
+            minLength = Math.min(a.toString().length, b.toString().length),
             a = parseInt(a.toString().substring(0, minLength), 10),
-            b = parseInt(b.toString().substring(0, minLength), 10),
-            program = 'return ' + a + ' ' + operator + ' ' + b + ';';
-        return Function(program)();
+            b = parseInt(b.toString().substring(0, minLength), 10);
+        return comparisons[operator](a, b);
     }
     // Public
     var lilswf = window.lilswf = {
