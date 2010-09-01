@@ -117,6 +117,7 @@
                 var name = privates[i];
                 lilswf[name] = eval(name);
             }
+            version = arguments[0];
         }
     };
 })();

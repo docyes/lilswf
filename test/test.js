@@ -1,6 +1,6 @@
 // Expose privates for testing.
-lilswf.enableTest()
 var version = 100020003;
+lilswf.enableTest(version);
 
 test("convert an array of numerical values to number", function() {
   //array of numbers as strings to a significance of 1
@@ -90,4 +90,8 @@ test("equality comparison", function() {
   equals(lilswf.compare(10003, "==", version), false)
   equals(lilswf.compare(10002, "==", version), true)
   equals(lilswf.compare(10001, "==", version), false) 
+});
+
+test("in a theatre soon", function() {
+
 });
